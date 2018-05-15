@@ -11,6 +11,7 @@ metadata:
 {{ toYaml .Values.labels | indent 4 }}
 {{- end }}
   name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
 spec:
 {{- if .Values.alertingEndpoints }}
   alerting:
@@ -20,7 +21,7 @@ spec:
   alerting:
     alertmanagers:
       - namespace: {{ .Release.Namespace }}
-        name: {{ printf "%s-alertmanager" .Release.Name | trunc 63 | trimSuffix "-" }}
+        name: {{ printf "alertmanager-%s" .Release.Name | trunc 63 | trimSuffix "-" }}
         port: http
 {{- end }}
   baseImage: "{{ .Values.image.repository }}"

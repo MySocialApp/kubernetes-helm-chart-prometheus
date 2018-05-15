@@ -15,6 +15,7 @@ metadata:
 {{ toYaml .Values.service.labels | indent 4 }}
 {{- end }}
   name: {{ template "prometheus.name" . }}
+  namespace: {{ .Release.Namespace }}
 spec:
   sessionAffinity: "{{ .Values.service.sessionAffinity }}"
   clusterIP: "{{ .Values.service.clusterIP }}"
